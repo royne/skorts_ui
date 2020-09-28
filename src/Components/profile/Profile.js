@@ -1,12 +1,12 @@
 import React from 'react';
-import EditData from './EditData';
+import Navbar from './Navbar'
 import '../../styles/profile.css';
 
 const Profile = () => {
   return ( 
     <main className="profile">
-      <h1>Perfil</h1>
-      <EditData />
+      <h1>Hola</h1>
+      <Navbar />
     </main>
    );
 }

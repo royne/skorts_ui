@@ -1,8 +1,12 @@
 import React from 'react';
+import Navbar from './Navbar'
 
 const EditPhotos = () => {
   return ( 
-    <h1>photos</h1>
+    <main className="profile">
+      <h1>Hola desdes fotos</h1>
+      <Navbar />
+    </main>
    );
 }
  

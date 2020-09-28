@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import MultiSelect from "react-multi-select-component";
 import { getSelecteds, getEscortProfile, sendFormData } from '../../services/editData'
+import Navbar from './Navbar';
 
 const EditData = () => {
   const [EscortData, setEscortData] = useState({
@@ -102,157 +103,161 @@ const EditData = () => {
   }
 
   return ( 
-    <section className="edit_data_profile container">
-      <form className="" onSubmit={sendForm}>
-        <div className="form-group">
-          <label>UserName</label>
-          <input
-            type="text"
-            name="username"
-            className="form-control"
-            defaultValue={EscortData.username}
-            onChange={getData}
-             />
-        </div>
-        <div className="row">
-          <div className="form-group col-6">
-            <label>Soy</label>
-            <select 
-              className="form-control"
-              name="sex"
-              value={EscortData.sex}
-              onChange={getData}>
-              <option value=""></option>
-              <option value="0">Mujer</option>
-              <option value="1">Hombre</option>
-            </select>
-          </div>
-          <div className="form-group col-6">
-            <label>Ciudad</label>
-            <select 
-              className="form-control"
-              name="city"
-              defaultValue={EscortData.city}
-              onChange={getData}>
-              <option value="0">Bogota</option>
-            </select>            
-          </div>  
-        </div>
-        <div className="row">
-          <div className="form-group col-6">
-            <label>Nombre</label>
+    <main className="profile">
+      <Navbar />
+      <section className="edit_data_profile container">
+        <h1>Hola</h1>
+        <form className="" onSubmit={sendForm}>
+          <div className="form-group">
+            <label>UserName</label>
             <input
               type="text"
-              name="first_name"
+              name="username"
               className="form-control"
-              defaultValue={EscortData.first_name} 
-              onChange={getData} />
+              defaultValue={EscortData.username}
+              onChange={getData}
+              />
           </div>
-          <div className="form-group col-6">
-            <label>Apellido</label>
-            <input
-              type="text"
-              name="last_name"
+          <div className="row">
+            <div className="form-group col-6">
+              <label>Soy</label>
+              <select 
+                className="form-control"
+                name="sex"
+                value={EscortData.sex}
+                onChange={getData}>
+                <option value=""></option>
+                <option value="0">Mujer</option>
+                <option value="1">Hombre</option>
+              </select>
+            </div>
+            <div className="form-group col-6">
+              <label>Ciudad</label>
+              <select 
+                className="form-control"
+                name="city"
+                defaultValue={EscortData.city}
+                onChange={getData}>
+                <option value="0">Bogota</option>
+              </select>            
+            </div>  
+          </div>
+          <div className="row">
+            <div className="form-group col-6">
+              <label>Nombre</label>
+              <input
+                type="text"
+                name="first_name"
+                className="form-control"
+                defaultValue={EscortData.first_name} 
+                onChange={getData} />
+            </div>
+            <div className="form-group col-6">
+              <label>Apellido</label>
+              <input
+                type="text"
+                name="last_name"
+                className="form-control"
+                defaultValue={EscortData.last_name}
+                onChange={getData} />
+            </div>
+          </div>
+          <div className="row">
+            <div className="form-group col-6">
+              <label>Precio</label>
+              <input
+                type="number"
+                name="price"
+                className="form-control"
+                defaultValue={EscortData.price}
+                onChange={getData} />
+            </div>
+            <div className="form-group col-6">
+              <label>Horario</label>
+              <input
+                type="text"
+                name="schedule"
+                className="form-control" 
+                defaultValue={EscortData.schedule}
+                onChange={getData}/>
+            </div>
+          </div>
+          <div className="row">
+            <div className="form-group col-6">
+              <label>Edad</label>
+              <input
+                type="number"
+                name="age"
+                className="form-control" 
+                defaultValue={EscortData.age}
+                onChange={getData}/>
+            </div>
+            <div className="form-group col-6">
+              <label>Celular</label>
+              <input
+                type="number"
+                name="phone"
+                className="form-control" 
+                defaultValue={EscortData.phone}
+                onChange={getData}/>
+            </div>
+          </div>
+          <div className="form-group">
+            <label>Descripcion</label>
+            <textarea 
               className="form-control"
-              defaultValue={EscortData.last_name}
-              onChange={getData} />
+              name="description"
+              onChange={getData}
+              value={EscortData.description}
+              ></textarea>
           </div>
-        </div>
-        <div className="row">
-          <div className="form-group col-6">
-            <label>Precio</label>
-            <input
-              type="number"
-              name="price"
-              className="form-control"
-              defaultValue={EscortData.price}
-              onChange={getData} />
+          
+          <div className="form-group">
+            <label>Categorias</label>
+            <p>
+              {EscortData.categories.map(e => <span key={e.value}>&#8227; {e.label} </span>)}
+            </p>
+            <MultiSelect
+              options={options.categories}
+              value={EscortData.categories}
+              onChange={setSelectedCategory}
+              labelledBy={"Selecciona Categorias"}
+              className="multiselects"
+              overrideStrings={overrideStrings} />       
           </div>
-          <div className="form-group col-6">
-            <label>Horario</label>
-            <input
-              type="text"
-              name="schedule"
-              className="form-control" 
-              defaultValue={EscortData.schedule}
-              onChange={getData}/>
+          <div className="form-group">
+            <label>Lugares</label>
+            <p>
+              {EscortData.locations.map(e => <span key={e.value}>&#8227; {e.label} </span>)}
+            </p>
+            <MultiSelect
+              options={options.locations}
+              value={EscortData.locations}
+              onChange={setSelectedLocation}
+              labelledBy={"Selecciona Lugares"}
+              className="multiselects"
+              overrideStrings={overrideStrings} />        
           </div>
-        </div>
-        <div className="row">
-          <div className="form-group col-6">
-            <label>Edad</label>
-            <input
-              type="number"
-              name="age"
-              className="form-control" 
-              defaultValue={EscortData.age}
-              onChange={getData}/>
+          <div className="form-group">
+            <label>Servicios</label>
+            <p>
+              {EscortData.services.map(e => <span key={e.value}>&#8227; {e.label} </span>)}
+            </p>
+            <MultiSelect
+              options={options.services}
+              value={EscortData.services}
+              onChange={setSelectedService}
+              labelledBy={"Selecciona Servicios"}
+              className="multiselects"
+              overrideStrings={overrideStrings} />     
           </div>
-          <div className="form-group col-6">
-            <label>Celular</label>
-            <input
-              type="number"
-              name="phone"
-              className="form-control" 
-              defaultValue={EscortData.phone}
-              onChange={getData}/>
-          </div>
-        </div>
-        <div className="form-group">
-          <label>Descripcion</label>
-          <textarea 
-            className="form-control"
-            name="description"
-            onChange={getData}
-            value={EscortData.description}
-            ></textarea>
-        </div>
-        
-        <div className="form-group">
-          <label>Categorias</label>
-          <p>
-            {EscortData.categories.map(e => <span key={e.value}>&#8227; {e.label} </span>)}
-          </p>
-          <MultiSelect
-            options={options.categories}
-            value={EscortData.categories}
-            onChange={setSelectedCategory}
-            labelledBy={"Selecciona Categorias"}
-            className="multiselects"
-            overrideStrings={overrideStrings} />       
-        </div>
-        <div className="form-group">
-          <label>Lugares</label>
-          <p>
-            {EscortData.locations.map(e => <span key={e.value}>&#8227; {e.label} </span>)}
-          </p>
-          <MultiSelect
-            options={options.locations}
-            value={EscortData.locations}
-            onChange={setSelectedLocation}
-            labelledBy={"Selecciona Lugares"}
-            className="multiselects"
-            overrideStrings={overrideStrings} />        
-        </div>
-        <div className="form-group">
-          <label>Servicios</label>
-          <p>
-            {EscortData.services.map(e => <span key={e.value}>&#8227; {e.label} </span>)}
-          </p>
-          <MultiSelect
-            options={options.services}
-            value={EscortData.services}
-            onChange={setSelectedService}
-            labelledBy={"Selecciona Servicios"}
-            className="multiselects"
-            overrideStrings={overrideStrings} />     
-        </div>
 
-        <div className="form-group">
-          <button className="btn btn-block btn-dark" >Actulizar</button>
-        </div>
-      </form>
-    </section>
+          <div className="form-group">
+            <button className="btn btn-block btn-dark" >Actulizar</button>
+          </div>
+        </form>
+      </section>
+    </main>
    );
 }
 
