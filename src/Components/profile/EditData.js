@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import MultiSelect from "react-multi-select-component";
+import { getSelecteds, getEscortProfile, sendFormData } from '../../services/editData'
 
 const EditData = () => {
   const [EscortData, setEscortData] = useState({
@@ -17,71 +18,101 @@ const EditData = () => {
     locations: [],
     services: []
   })
-  const [selectedcategory, setSelectedCategory] = useState([]);
-  const [selectedservice, setSelectedService] = useState([]);
-  const [selectedlocation, setSelectedLocation] = useState([]);
 
   const [options, setOptions] = useState({
     categories: [],
     services: [],
-    locations: []
+    locations: [],
+    status: true
   })
 
+  const [selectedcategory, setSelectedCategory] = useState([]);
+  const [selectedservice, setSelectedService] = useState([]);
+  const [selectedlocation, setSelectedLocation] = useState([]);
+
+
   useEffect(() => {
-    const url = 'http://localhost:4000/api/v1'
-    const requestSelecteds = () => {
-      fetch(`${url}/escorts_selected`)
-      .then(response => response.json())
-      .then(data => {
+    if (options.status) {
+      const requestSelecteds = async () => {
+        const reponseSelect = await getSelecteds()
         setOptions({
           ...options,
-          categories: data.categories,
-          services: data.services,
-          locations: data.locations
+          categories: reponseSelect.categories,
+          services: reponseSelect.services,
+          locations: reponseSelect.locations,
+          status: false
         })
-      })
-    }
-    const requestEscortProfiles = () => {
-      fetch(`${url}/escort_profiles/5`)
-      .then(response => response.json())
-      .then(data => {
-        const dataSelected = { services: [], locations: [], categories: [] }
-        data.services.map(e => dataSelected.services.push({ label: e.name, value: e.id }))
-        data.categories.map(e => dataSelected.categories.push({ label: e.name, value: e.id }))
-        data.locations.map(e => dataSelected.locations.push({ label: e.name, value: e.id }))
+      }
+      const requestEscortProfiles = async () => {
+        const response = await getEscortProfile()
         setEscortData({
           ...EscortData,
-          username: data.username,
-          city: data.city,
-          first_name: data.first_name,
-          last_name: data.last_name,
-          price: data.price,
-          schedule: data.schedule,
-          age: data.age,
-          phone: data.phone,
-          sex: data.sex,
-          description: data.description,
-          categories: dataSelected.categories,
-          locations: dataSelected.locations,
-          services: dataSelected.services
+          username: response.data.username,
+          city: response.data.city,
+          first_name: response.data.first_name,
+          last_name: response.data.last_name,
+          price: response.data.price,
+          schedule: response.data.schedule,
+          age: response.data.age,
+          phone: response.data.phone,
+          sex: response.data.sex,
+          description: response.data.description,
+          categories: response.dataSelected.categories,
+          locations: response.dataSelected.locations,
+          services: response.dataSelected.services
         })
-      })
+      }
+      requestSelecteds()
+      requestEscortProfiles()
     }
-    requestSelecteds()
-    requestEscortProfiles()
-  },[])
+  }, [])
   
-  
+  useEffect(() => {
+    setEscortData({
+      ...EscortData,
+      categories: selectedcategory
+    })  
+  }, [selectedcategory])
+
+  useEffect(() => {
+    setEscortData({
+      ...EscortData,
+      locations: selectedlocation
+    })
+  }, [selectedlocation])
+
+  useEffect(() => {
+    setEscortData({
+      ...EscortData,
+      services: selectedservice
+    })
+  }, [selectedservice])
+
+
+  const getData = e => {
+    setEscortData({
+      ...EscortData,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const sendForm = e => {
+    e.preventDefault()
+    sendFormData(EscortData)
+  }
+
   return ( 
     <section className="edit_data_profile container">
-      <form className="">
+      <form className="" onSubmit={sendForm}>
         <div className="form-group">
           <label>UserName</label>
           <input
             type="text"
             name="username"
             className="form-control"
-            value={EscortData.username} />
+            defaultValue={EscortData.username}
+            onChange={getData}
+             />
         </div>
         <div className="row">
           <div className="form-group col-6">
@@ -89,7 +120,8 @@ const EditData = () => {
             <select 
               className="form-control"
               name="sex"
-              value={EscortData.sex}>
+              value={EscortData.sex}
+              onChange={getData}>
               <option value=""></option>
               <option value="0">Mujer</option>
               <option value="1">Hombre</option>
@@ -100,7 +132,8 @@ const EditData = () => {
             <select 
               className="form-control"
               name="city"
-              value={EscortData.city}>
+              defaultValue={EscortData.city}
+              onChange={getData}>
               <option value="0">Bogota</option>
             </select>            
           </div>  
@@ -112,7 +145,8 @@ const EditData = () => {
               type="text"
               name="first_name"
               className="form-control"
-              value={EscortData.first_name} />
+              defaultValue={EscortData.first_name} 
+              onChange={getData} />
           </div>
           <div className="form-group col-6">
             <label>Apellido</label>
@@ -120,7 +154,8 @@ const EditData = () => {
               type="text"
               name="last_name"
               className="form-control"
-              value={EscortData.last_name} />
+              defaultValue={EscortData.last_name}
+              onChange={getData} />
           </div>
         </div>
         <div className="row">
@@ -130,7 +165,8 @@ const EditData = () => {
               type="number"
               name="price"
               className="form-control"
-              value={EscortData.price} />
+              defaultValue={EscortData.price}
+              onChange={getData} />
           </div>
           <div className="form-group col-6">
             <label>Horario</label>
@@ -138,7 +174,8 @@ const EditData = () => {
               type="text"
               name="schedule"
               className="form-control" 
-              value={EscortData.schedule}/>
+              defaultValue={EscortData.schedule}
+              onChange={getData}/>
           </div>
         </div>
         <div className="row">
@@ -148,7 +185,8 @@ const EditData = () => {
               type="number"
               name="age"
               className="form-control" 
-              value={EscortData.age}/>
+              defaultValue={EscortData.age}
+              onChange={getData}/>
           </div>
           <div className="form-group col-6">
             <label>Celular</label>
@@ -156,7 +194,8 @@ const EditData = () => {
               type="number"
               name="phone"
               className="form-control" 
-              value={EscortData.phone}/>
+              defaultValue={EscortData.phone}
+              onChange={getData}/>
           </div>
         </div>
         <div className="form-group">
@@ -164,13 +203,15 @@ const EditData = () => {
           <textarea 
             className="form-control"
             name="description"
+            onChange={getData}
+            value={EscortData.description}
             ></textarea>
         </div>
         
         <div className="form-group">
           <label>Categorias</label>
           <p>
-            {selectedcategory.map(e => <span key={e.value}>&#8227; {e.label} </span>)}
+            {EscortData.categories.map(e => <span key={e.value}>&#8227; {e.label} </span>)}
           </p>
           <MultiSelect
             options={options.categories}
@@ -183,7 +224,7 @@ const EditData = () => {
         <div className="form-group">
           <label>Lugares</label>
           <p>
-            {selectedlocation.map(e => <span key={e.value}>&#8227; {e.label} </span>)}
+            {EscortData.locations.map(e => <span key={e.value}>&#8227; {e.label} </span>)}
           </p>
           <MultiSelect
             options={options.locations}
@@ -196,7 +237,7 @@ const EditData = () => {
         <div className="form-group">
           <label>Servicios</label>
           <p>
-            {selectedservice.map(e => <span key={e.value}>&#8227; {e.label} </span>)}
+            {EscortData.services.map(e => <span key={e.value}>&#8227; {e.label} </span>)}
           </p>
           <MultiSelect
             options={options.services}
@@ -208,7 +249,7 @@ const EditData = () => {
         </div>
 
         <div className="form-group">
-          <button className="btn btn-block btn-dark">Actulizar</button>
+          <button className="btn btn-block btn-dark" >Actulizar</button>
         </div>
       </form>
     </section>
