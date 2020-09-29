@@ -9,6 +9,8 @@ const PhotosContaint = () => {
       <form className="photos_containt_form">
         <input
           type="file"
+          accept="image/*" 
+          multiple={true}
           name="photos"
           id="photos_conataint_profile" />
         <label htmlFor="photos_conataint_profile">Selecciona tus Fotos</label>

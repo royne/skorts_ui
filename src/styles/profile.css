@@ -63,7 +63,11 @@
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  box-shadow: 0 3px 7px rgba(255,255,255,.5);
+  display: flex;
+}
+.profile_photo_containt_box>img{
+  width: 100%;
+  border-radius: 50%;
 }
 #photo_profile, #photos_conataint_profile{
   width: 0.1px;

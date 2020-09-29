@@ -1,12 +1,15 @@
 import React from 'react';
-import Navbar from './Navbar'
+import Menubar from './Menubar'
 import '../../styles/profile.css';
+import HeaderProfile from './HeaderProfile';
+import ProfileBody from './ProfileBody';
 
 const Profile = () => {
   return ( 
     <main className="profile">
-      <h1>Hola</h1>
-      <Navbar />
+      <HeaderProfile />
+      <ProfileBody />
+      <Menubar />
     </main>
    );
 }

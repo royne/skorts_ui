@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import MultiSelect from "react-multi-select-component";
 import { getSelecteds, getEscortProfile, sendFormData } from '../../services/editData'
-import Navbar from './Navbar';
+import Menubar from './Menubar';
 import { Redirect } from 'react-router-dom';
 
 const EditData = () => {
@@ -107,7 +107,7 @@ const EditData = () => {
 
   return ( 
     <main className="profile">
-      <Navbar />
+      <Menubar />
       <section className="edit_data_profile container">
         <h1>Hola</h1>
         <form className="" onSubmit={sendForm}>
