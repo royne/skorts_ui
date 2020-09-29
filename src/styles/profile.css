@@ -23,6 +23,18 @@
 }
 .nav_profile_link{
   color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+}
+.nav_profile_link:hover{
+  text-decoration: none;
+  color: #ffffff;
+}
+.nav_profile_link_active{
+  color: rebeccapurple;
+}
+.nav_profile_link_active:hover{
+  color: rebeccapurple;
 }
 
 .edit_data_profile{

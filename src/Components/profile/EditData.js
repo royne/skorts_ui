@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import MultiSelect from "react-multi-select-component";
 import { getSelecteds, getEscortProfile, sendFormData } from '../../services/editData'
 import Navbar from './Navbar';
+import { Redirect } from 'react-router-dom';
 
 const EditData = () => {
   const [EscortData, setEscortData] = useState({
@@ -31,6 +32,7 @@ const EditData = () => {
   const [selectedservice, setSelectedService] = useState([]);
   const [selectedlocation, setSelectedLocation] = useState([]);
 
+  const [status, setStatus] = useState(false)
 
   useEffect(() => {
     if (options.status) {
@@ -97,9 +99,10 @@ const EditData = () => {
     })
   }
 
-  const sendForm = e => {
+  const sendForm = async e => {
     e.preventDefault()
-    sendFormData(EscortData)
+    const response = await sendFormData(EscortData)
+    if (response.ok) setStatus(!status)
   }
 
   return ( 
@@ -257,6 +260,7 @@ const EditData = () => {
           </div>
         </form>
       </section>
+      { status && <Redirect to="/perfil" />}
     </main>
    );
 }
