@@ -3,6 +3,7 @@
   background-color: black;
   color: #f5f5f5;
   padding-bottom: 60px;
+  min-height: 100vh;
 }
 .nav_profile{
   width: 100%;
@@ -44,4 +45,90 @@
 }
 .multiselects{
   color: #303030;
+}
+
+
+.profile_photo_containt{
+  width: 100%;
+  height: 30vh;
+  padding: 5%;
+  margin-bottom: 20px;
+}
+.profile_photo_containt_form{
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.profile_photo_containt_box{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  box-shadow: 0 3px 7px rgba(255,255,255,.5);
+}
+#photo_profile, #photos_conataint_profile{
+  width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+#photo_profile + label,
+#photos_conataint_profile + label {
+  height: 30px;
+  padding: 5% 7%;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  background-color: rebeccapurple;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 3px 7px rgba(255,255,255,0.2);
+  line-height: 0;
+}
+
+
+.photos_containt{
+  width: 100%;
+  box-shadow: 0 -2px 5px rgba(255,255,255,0.2);
+  padding: 5%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.section_photos{
+  width: 100%;
+  padding-top: 2%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.box_photo{
+  width: 33%;
+  height: 110px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(255,255,255,0.2);
+  position: relative;
+}
+.btn_destroy{
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 3px solid red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  color: red;
+  font-weight: bold;
+  bottom: 5%;
+  right: 5%;
+  line-height: 0;
+  z-index: 5;
+  cursor: pointer;
 }
