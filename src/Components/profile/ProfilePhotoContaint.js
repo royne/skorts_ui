@@ -8,7 +8,7 @@ const ProfilePhotoContaint = () => {
     const url = 'http://localhost:4000/api/v1'
     const response = await fetch(`${url}/escort_profiles/1`)
     const data = await response.json()
-    setData(data.profile_photo.url)
+    if (data.profile_photo !== null) setData(data.profile_photo.url)
   }
 
   useEffect(() => {  
@@ -20,10 +20,13 @@ const ProfilePhotoContaint = () => {
     const formData = new FormData();
     formData.append('profile_photo', e.target.files[0]);
     const response = await fetch(`${url}/escort_profiles/1`, {
-      method: 'PUT',
+      method: 'PATCH',
       body: formData
     })
-    getData()
+    if(response.ok){
+      const data = await response.json()
+      setData(data.profile_photo.url)
+    }
   }
 
   return ( 
@@ -31,7 +34,7 @@ const ProfilePhotoContaint = () => {
       <p>Foto de perfil</p>
       <form name="escort_profile" className="profile_photo_containt_form">
         <div className="profile_photo_containt_box">
-          <img src={data} />
+          { data && <img src={data} /> }
         </div>
         <input
           type="file"

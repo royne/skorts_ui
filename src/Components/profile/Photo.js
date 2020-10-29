@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Photo = () => {
+const Photo = ({id, url}) => {
   return ( 
     <div className="box_photo">
-      foto
-      <div className="btn_destroy">x</div>
+      <img src={url} id={id} />
+      <div className="btn_destroy" id={id}>x</div>
     </div>
    );
 }
