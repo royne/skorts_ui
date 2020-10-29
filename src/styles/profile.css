@@ -114,15 +114,24 @@
 
 .box_photo{
   width: 33%;
-  height: 110px;
   margin-bottom: 5px;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(255,255,255,0.2);
   position: relative;
 }
-.box_photo>img{
+.box_photo:after {
+  content: '';
+  display: block;
+  padding-bottom: 100%;
+}
+.box_photo_content {
+  position: absolute;
   width: 100%;
-  height: 110px;
+  height: 100%;
+  display: flex;
+}
+.box_photo_content>img{
+  width: 100%;
 }
 .btn_destroy{
   position: absolute;
@@ -142,15 +151,58 @@
   cursor: pointer;
 }
 
-
-.img_profile{
-  width: 100%;
-  height: 50vh;
-}
-
 .profile_header{
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 5%;
+}
+
+.profile_photo{
+  width: 100%;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(255,255,255,0.2);
+  position: relative;
+}
+.profile_photo:after {
+  content: '';
+  display: block;
+  padding-bottom: 100%;
+}
+.profile_photo_content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+.profile_photo_content>img{
+  width: 100%;
+}
+
+.container_photo_header, .container_photo_footer{
+  width: 100%;
+  height: 60px;
+  padding: 2% 5%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.container_photo_header>img{
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+.container_photo_header>span{
+  margin-left: 15px;
+  font-weight: bold;
+}
+.container_photo_footer{
+  justify-content: space-between;
+  align-items: flex-start;
+  font-size: 22px;
+}
+.active_ico{
+  color: red;
+  font-weight: bold;
 }
