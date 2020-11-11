@@ -26,7 +26,7 @@ const  Form = ({setData}) => {
     .then(response => response.json())
     .then(data => {
       console.log(data)
-      setData(data)
+      setData(data, credentials.password)
       setCredentials({
         username: '',
         email: '',

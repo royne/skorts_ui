@@ -1,21 +1,27 @@
 import React, {useState} from 'react';
 import '../../styles/escorts_account.css';
 import Form from './Form';
+import { Redirect } from 'react-router-dom';
 
 const EscortsAccount = () => {
   const [user, setUser] = useState(null)
-  const [token, setToken] = useState(null)
+  const [statusLogin, setStatusLogin] = useState(false)
 
-  const setData = data => {
+  const setData = (data, credential) => {
     setUser(data)
-    // const url = 'http://localhost:4000/api/v1/user_token';
-    // fetch(url, {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ auth: credentials })
-    // })
-    //   .then(response => response.json())
-    //   .then(data => setData(data)) 
+
+    const url = 'http://localhost:4000/api/v1/user_token';
+    const credentials = {email: data.email, password: credential}
+    fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ auth: credentials })
+    })
+      .then(response => response.json())
+      .then(data => {
+        localStorage.setItem('token', data.jwt )
+        setStatusLogin(!statusLogin)
+      }) 
   }
 
   return ( 
@@ -36,6 +42,7 @@ const EscortsAccount = () => {
       <section className="signup_escort_section">
         <h1 className="text-center">¡No esperes mas Registrate ya!</h1>
       </section>
+      { statusLogin && <Redirect to="/perfil" />}
     </main>
    );
 }
