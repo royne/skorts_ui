@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { Redirect } from 'react-router-dom';
+import { setToken } from '../../services/authService'
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
@@ -27,7 +28,7 @@ const Login = () => {
     })
       .then(response => response.json())
       .then(data => {
-        localStorage.setItem('token', data.jwt)
+        setToken(data.jwt)
         setStatusLogin(!statusLogin)
       }) 
       .catch(e => console.log(e))

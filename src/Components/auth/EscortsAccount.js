@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import '../../styles/escorts_account.css';
 import Form from './Form';
+import { setToken } from '../../services/authService'
+import '../../styles/escorts_account.css';
 import { Redirect } from 'react-router-dom';
 
 const EscortsAccount = () => {
@@ -19,7 +20,7 @@ const EscortsAccount = () => {
     })
       .then(response => response.json())
       .then(data => {
-        localStorage.setItem('token', data.jwt )
+        setToken(data.jwt)
         setStatusLogin(!statusLogin)
       }) 
   }

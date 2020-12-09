@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { axios } from '../../services/settings'
 
 const Home = () => {
   const [Escorts, setEscorts] = useState([])
@@ -6,10 +7,8 @@ const Home = () => {
   useEffect(() => {
     if(Escorts.length === 0){
       const getEscorts = async () => {
-        const url = 'http://localhost:4000/api/v1/users'
-        const response = await fetch(url)
-        const data = await response.json()
-        console.log(data)
+        const url = '/users'
+        const { data } = await axios.get(url)
         setEscorts(data)
       }
       getEscorts()

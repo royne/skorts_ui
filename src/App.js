@@ -6,6 +6,9 @@ import Profile from './Components/profile/Profile';
 import EditData from './Components/profile/EditData'
 import EditPhotos from './Components/profile/EditPhotos';
 import Login from './Components/auth/Login';
+import {interceptor} from './services/settings'
+
+interceptor()
 
 function App() {
   return (
