@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { axios } from '../../services/settings'
 
 const HeaderProfile = () => {
   const [profilePhoto, setprofilePhoto] = useState(null)
@@ -6,9 +7,8 @@ const HeaderProfile = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const url = 'http://localhost:4000/api/v1'
-      const response = await fetch(`${url}/escort_profiles/1`)
-      const data = await response.json()
+      const response = await axios.get(`/one_profile`)
+      const { data } = response
       setprofileData(data)
       if (data.profile_photo) setprofilePhoto(data.profile_photo.url)
     }

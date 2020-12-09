@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import MultiSelect from "react-multi-select-component";
-import { getSelecteds, getEscortProfile, sendFormData } from '../../services/editData'
+import { getSelecteds, getEscortProfile, sendFormData } from '../../services/profileService'
 import Menubar from './Menubar';
 import { Redirect } from 'react-router-dom';
 

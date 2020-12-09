@@ -7,7 +7,7 @@ const PhotosContaint = () => {
 
   const getData = async () => {
     const url = 'http://localhost:4000/api/v1'
-    const response = await fetch(`${url}/escort_profiles/1`)
+    const response = await fetch(`${url}/escort_profiles/2`)
     const data = await response.json()
     setData(data.photos)
   }
@@ -21,7 +21,7 @@ const PhotosContaint = () => {
     const formData = new FormData();
     const arrayPhotos = Array.from(e.target.files)
     arrayPhotos.map((elm, i) => formData.append(`photos_${i}`, elm))
-    const response = await fetch(`${url}/escort_profiles/1`, {
+    const response = await fetch(`${url}/escort_profiles/2`, {
       method: 'PATCH',
       body: formData
     })

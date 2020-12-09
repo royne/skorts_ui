@@ -5,12 +5,17 @@ import Home from './Components/home/Home';
 import Profile from './Components/profile/Profile';
 import EditData from './Components/profile/EditData'
 import EditPhotos from './Components/profile/EditPhotos';
+import Login from './Components/auth/Login';
+import {interceptor} from './services/settings'
+
+interceptor()
 
 function App() {
   return (
     <Router>
       <Switch>
         <Route exact path="/" component={Home} />
+        <Route exact path="/login" component={Login} />
         <Route exact path="/signup-escort" component={EscortsAccount} />
         <Route exact path="/perfil" component={Profile} />
         <Route exact path="/editar-perfil" component={EditData} />

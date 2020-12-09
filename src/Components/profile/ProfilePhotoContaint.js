@@ -6,7 +6,7 @@ const ProfilePhotoContaint = () => {
 
   const getData = async () => {
     const url = 'http://localhost:4000/api/v1'
-    const response = await fetch(`${url}/escort_profiles/1`)
+    const response = await fetch(`${url}/escort_profiles/2`)
     const data = await response.json()
     if (data.profile_photo !== null) setData(data.profile_photo.url)
   }
@@ -19,7 +19,7 @@ const ProfilePhotoContaint = () => {
     const url = 'http://localhost:4000/api/v1'
     const formData = new FormData();
     formData.append('profile_photo', e.target.files[0]);
-    const response = await fetch(`${url}/escort_profiles/1`, {
+    const response = await fetch(`${url}/escort_profiles/2`, {
       method: 'PATCH',
       body: formData
     })
